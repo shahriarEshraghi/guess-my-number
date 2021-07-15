@@ -3,15 +3,40 @@
 const createRandomNumber = function () {
     return Math.floor(Math.random() * 20)
 }
-const randomNum = createRandomNumber();
+
+let randomNum = createRandomNumber();
+let score = Number(document.querySelector('.score').textContent);
+let highScore = Number(document.querySelector('.highscore').textContent);
+
 const checkBtn = document.querySelector('.check');
+const againBtn = document.querySelector('.again');
+
 checkBtn.addEventListener('click', function () {
-    let enteredNum = document.querySelector('.guess').value;
+    console.log(randomNum)
+    let enteredNum = Number(document.querySelector('.guess').value);
     if (enteredNum < randomNum) {
         document.querySelector('.message').textContent = "Too Low :(";
+        document.querySelector('.score').textContent = --score;
     } else if (enteredNum > randomNum) {
         document.querySelector('.message').textContent = "Too High :(";
-    } else {
+        document.querySelector('.score').textContent = --score;
+    } else if (enteredNum == randomNum) {
         document.querySelector('.message').textContent = "That's it :D";
+        document.querySelector('body').style.backgroundColor = "#60b347";
+        if (score > highScore) {
+            console.log("bishtare")
+            document.querySelector('.highscore').textContent = score;
+            highScore = score;
+        }
     }
+});
+
+againBtn.addEventListener('click', function () {
+    randomNum = createRandomNumber();
+    console.log(randomNum)
+    score = 20;
+    document.querySelector('body').style.backgroundColor = "#222";
+    document.querySelector('.message').textContent = "Start guessing..";
+    document.querySelector('.score').textContent = 20;
+    document.querySelector('.guess').value = "";
 });
