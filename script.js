@@ -10,11 +10,13 @@ let highScore = Number(document.querySelector('.highscore').textContent);
 
 const checkBtn = document.querySelector('.check');
 const againBtn = document.querySelector('.again');
-
 checkBtn.addEventListener('click', function () {
     console.log(randomNum)
     let enteredNum = Number(document.querySelector('.guess').value);
-    if (enteredNum < randomNum) {
+    if (!enteredNum) {
+        document.querySelector('.message').textContent = "No Number guessed :/";
+    }
+    else if (enteredNum < randomNum) {
         document.querySelector('.message').textContent = "Too Low :(";
         document.querySelector('.score').textContent = --score;
     } else if (enteredNum > randomNum) {
@@ -28,9 +30,11 @@ checkBtn.addEventListener('click', function () {
             document.querySelector('.highscore').textContent = score;
             highScore = score;
         }
+    } else if (!enteredNum) {
+        document.querySelector('.message').textContent = "No Number guessed :(";
     }
+    console.log(enteredNum);
 });
-
 againBtn.addEventListener('click', function () {
     randomNum = createRandomNumber();
     console.log(randomNum)
